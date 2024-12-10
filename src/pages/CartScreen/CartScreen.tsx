@@ -8,11 +8,11 @@ import { openBrowserAsync } from "expo-web-browser"
 import { useState } from "react"
 import { checkout, order } from "@/src/Services/checkout.service"
 import { VehicleCartItem } from "@/src/components/VeicleCartItem/VehicleCartItem"
+import { Buttons } from "@/src/components/Buttons/Buttons"
 
 export const CartScreen = () => {
     const { cart, totalCart, clearCart } = useCart()
     const [isLoading, setIsLoading] = useState(false);
-
     const handleCheckout = async () => {
         setIsLoading(true);
         try {
@@ -25,7 +25,8 @@ export const CartScreen = () => {
                 text2: "Aguardando a realização do pagamento",
             })
             await openBrowserAsync(url);
-        } catch (error) {
+        } catch (error: any) {
+            console.log(error.response)
             Toast.show({
                 type: "error",
                 text1: " Erro ao finalizar compra",
@@ -42,7 +43,9 @@ export const CartScreen = () => {
                 data={cart}
                 style={styles.cartList}
                 keyExtractor={(item) => String(item.id)}
-                renderItem={({ item }) => <VehicleCartItem item={item} />}
+                renderItem={({ item }) => <VehicleCartItem item={item}
+                    showButtons
+                />}
             />
             {isLoading && (<ActivityIndicator size="large" color={"blue"} />
             )}
@@ -54,14 +57,10 @@ export const CartScreen = () => {
                     })}
                 </Text>
                 {!isLoading && (
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity onPress={() => clearCart()}>
-                            <Text>Limpar carrinho!</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={handleCheckout}>
-                            <Text>Checkout!</Text>
-                        </TouchableOpacity>
-                    </View>
+                    <Buttons
+                        clearCart={clearCart}
+                        handleCheckout={handleCheckout}
+                    />
                 )}
             </View>
         </View>

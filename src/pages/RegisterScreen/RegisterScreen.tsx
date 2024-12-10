@@ -39,13 +39,16 @@ export const RegisterScreen = ({ navigation }: NativeStackScreenProps<any>) => {
                         secureTextEntry
                         isRequired />
                 </Form>
-                <TouchableOpacity
-                    onPress={() => {
-                        handleSubmit(onSubmit)()
-                    }}
-                >
-                    <Text style={styles.textCad}>Cadastrar!</Text>
-                </TouchableOpacity>
+                <View style={styles.containerButton}>
+                    <TouchableOpacity
+                        style={styles.regButton}
+                        onPress={() => {
+                            handleSubmit(onSubmit)()
+                        }}
+                    >
+                        <Text style={styles.textCad}>Cadastrar!</Text>
+                    </TouchableOpacity>
+                </View>
                 <View>
                     <View style={styles.divider}>
                         <TouchableOpacity

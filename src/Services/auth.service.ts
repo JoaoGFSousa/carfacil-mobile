@@ -18,7 +18,7 @@ export interface UserModel {
 
 export interface SignInResponse {
   user: UserModel;
-  access_token: string;
+  accessToken: string;
 }
 
 export interface SignUpResponse {

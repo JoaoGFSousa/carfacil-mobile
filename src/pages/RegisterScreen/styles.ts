@@ -33,4 +33,14 @@ export const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: "700",
   },
+  regButton: {
+    backgroundColor: theme.colors.body.tertiary,
+    width: 100,
+    margin: "auto",
+    padding: 4,
+    borderRadius: 5,
+  },
+  containerButton: {
+    marginTop: 5,
+  },
 });

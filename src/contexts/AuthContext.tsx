@@ -24,17 +24,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         (async () => {
-            const [cacheLogged] = await Promise.all([
+            const [userCached, tokenCached] = await Promise.all([
                 getItem("user"),
                 getItem("token"),
             ]);
-            setUser(user);
-            setToken(token);
+            setUser(userCached);
+            setToken(tokenCached);
         })();
     }, []);
 
     useEffect(() => {
-        if (token !== null) {
+        if (token) {
             setIsLogged(true);
             setItem("token", token);
             api.defaults.headers["Authorization"] = `Bearer ${token}`;
@@ -52,8 +52,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const signIn = async (value: SignInRequest) => {
         try {
-            const { access_token, user } = await login(value);
-            setToken(access_token);
+            const { accessToken, user } = await login(value);
+            setToken(accessToken);
             setUser(user)
             navigator.navigate("Initial" as never);
         } catch (error) {
@@ -90,6 +90,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setToken(null);
         removeItem("user");
         removeItem("token");
+        navigator.navigate("Initial" as never);
     }
 
     return (

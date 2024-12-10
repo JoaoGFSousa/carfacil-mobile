@@ -19,4 +19,17 @@ export const styles = StyleSheet.create({
   button: {
     color: "blue",
   },
+  logButton: {
+    backgroundColor: theme.colors.body.tertiary,
+    width: 100,
+    margin: "auto",
+    padding: 4,
+    borderRadius: 5,
+  },
+  text: {
+    alignSelf: "center",
+  },
+  gap: {
+    marginTop: 5,
+  },
 });

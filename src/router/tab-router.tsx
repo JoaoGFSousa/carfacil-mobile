@@ -13,7 +13,7 @@ import { useAuth } from "../contexts/AuthContext";
 export const Tab = createBottomTabNavigator();
 
 export const TabRouter = ({ navigation }: NativeStackScreenProps<any>) => {
-   const {isLogged} = useAuth();
+    const { isLogged } = useAuth();
     return (
         <Tab.Navigator screenOptions={{
             headerStyle: styles.header,
@@ -23,7 +23,7 @@ export const TabRouter = ({ navigation }: NativeStackScreenProps<any>) => {
                 )
             },
             headerTitle: ({ children }) => {
-                return children == "Home" ? <Text>Carfácil</Text> : children;
+                return children == "Home" ? <Text>Carfácil</Text> : <Text>{children}</Text>;
             },
             headerTitleAlign: "center",
         }}>
@@ -35,22 +35,22 @@ export const TabRouter = ({ navigation }: NativeStackScreenProps<any>) => {
                     title: "Home",
                     headerRight: () => {
                         return <>
-                        {isLogged?
-                            <TouchableOpacity onPress={() => {
-                                navigation.navigate("AccountScreen")
-                            }}
-                                style={styles.loginButton}
-                            >
-                                <FontAwesome5 name="user-check" size={24} color="black" />
-                                <Text>Sua Conta!</Text>
-                            </TouchableOpacity>:<TouchableOpacity onPress={() => {
-                                navigation.navigate("LoginScreen")
-                            }}
-                                style={styles.loginButton}
-                            >
-                                <FontAwesome5 name="user-astronaut" size={24} color="black" />
-                                <Text>LogIn!</Text>
-                            </TouchableOpacity> }                            
+                            {isLogged ?
+                                <TouchableOpacity onPress={() => {
+                                    navigation.navigate("AccountScreen")
+                                }}
+                                    style={styles.loginButton}
+                                >
+                                    <FontAwesome5 name="user-check" size={24} color="black" />
+                                    <Text>Sua Conta!</Text>
+                                </TouchableOpacity> : <TouchableOpacity onPress={() => {
+                                    navigation.navigate("LoginScreen")
+                                }}
+                                    style={styles.loginButton}
+                                >
+                                    <FontAwesome5 name="user-astronaut" size={24} color="black" />
+                                    <Text>LogIn!</Text>
+                                </TouchableOpacity>}
                         </>
                     }
                 }}

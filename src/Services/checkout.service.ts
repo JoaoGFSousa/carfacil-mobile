@@ -17,6 +17,6 @@ export const order = async (cart: CheckoutRequestProps[]): Promise<string> => {
       amount: item.amount,
     })),
   };
-  const { data } = await api.post("/order");
+  const { data } = await api.post("/order", body);
   return data.id;
 };

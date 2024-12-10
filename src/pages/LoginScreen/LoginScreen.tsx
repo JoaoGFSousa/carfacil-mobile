@@ -36,11 +36,14 @@ export const LoginScreen = ({ navigation }: NativeStackScreenProps<any>) => {
                     <Input label="Email" id="email" isRequired />
                     <Input label="Senha" id="password" isRequired secureTextEntry />
                 </Form>
-                <TouchableOpacity
-                    onPress={() => handleSubmit(onSubmit)()}
-                >
-                    <Text>Logar!</Text>
-                </TouchableOpacity>
+                <View style={styles.gap}>
+                    <TouchableOpacity
+                        style={styles.logButton}
+                        onPress={() => handleSubmit(onSubmit)()}
+                    >
+                        <Text style={styles.text}>Logar!</Text>
+                    </TouchableOpacity>
+                </View>
                 <TouchableOpacity
                     onPress={() => navigation.navigate("RegisterScreen")}
                 >

@@ -2,7 +2,7 @@
 import { View, Text, Touchable } from "react-native";
 import { Image } from "expo-image";
 import { useCart } from "@/src/contexts/CartContext";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { TouchableOpacity } from "react-native";
 import { FontAwesome6 } from "@expo/vector-icons";
 import { VehicleModel } from "@/src/Services/vehicle.service";
 import { styles } from "./styles";
@@ -10,15 +10,17 @@ import { styles } from "./styles";
 
 export const VehicleCartItem = ({
     item,
+    showButtons,
 }: {
     item: VehicleModel & { amount: number };
+    showButtons?: boolean;
 }) => {
     const { removeVehicle, addQuantity, subQuantity } = useCart();
     return (
         <View style={styles.itemContainer}>
-            <Image 
-            style={styles.itemImage} 
-            source={`${process.env.EXPO_PUBLIC_BASE_URL}/${item.img}`}
+            <Image
+                style={styles.itemImage}
+                source={`${item.img}`}
                 contentFit="cover"
             />
             <View style={styles.itemDetails} >
@@ -30,21 +32,23 @@ export const VehicleCartItem = ({
                 </Text>
                 <View style={styles.itemQuantityView} >
                     <Text>Dias: </Text>
-                    <TouchableOpacity style={styles.itemQuantityButton} onPress={() => subQuantity(item.id)}>
-                        <FontAwesome6
-                            name="minus"
-                            size={12}
-                            style={styles.itemQuantityIcon}
-                        />
-                    </TouchableOpacity>
+                    {showButtons &&
+                        <TouchableOpacity style={styles.itemQuantityButton} onPress={() => subQuantity(item.id)}>
+                            <FontAwesome6
+                                name="minus"
+                                size={12}
+                                style={styles.itemQuantityIcon}
+                            />
+                        </TouchableOpacity>}
                     <Text style={styles.itemQuantity}>{item.amount}</Text>
-                    <TouchableOpacity style={styles.itemQuantityButton} onPress={() => addQuantity(item.id)}>
-                        <FontAwesome6
-                            name="plus"
-                            size={12}
-                            style={styles.itemQuantityIcon}
-                        />
-                    </TouchableOpacity>
+                    {showButtons &&
+                        <TouchableOpacity style={styles.itemQuantityButton} onPress={() => addQuantity(item.id)}>
+                            <FontAwesome6
+                                name="plus"
+                                size={12}
+                                style={styles.itemQuantityIcon}
+                            />
+                        </TouchableOpacity>}
                 </View>
                 <Text style={styles.itemTotalPrice}>
                     Total:{" "}
@@ -54,14 +58,15 @@ export const VehicleCartItem = ({
                     })}
                 </Text>
             </View>
-            <TouchableOpacity style={styles.itemRemoveButton}>
-                <FontAwesome6
-                    name="trash"
-                    size={16}
-                    styles={styles.itemRemoveButton}
-                    onPress={() => removeVehicle(item.id)}
-                />
-            </TouchableOpacity>
+            {showButtons &&
+                <TouchableOpacity style={styles.itemRemoveButton}>
+                    <FontAwesome6
+                        name="trash"
+                        size={16}
+                        styles={styles.itemRemoveButton}
+                        onPress={() => removeVehicle(item.id)}
+                    />
+                </TouchableOpacity>}
         </View>
     );
 };
